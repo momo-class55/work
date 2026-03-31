@@ -1,0 +1,25 @@
+package com.shopqr.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDate;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DailyMenu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false, unique = true)
+    private LocalDate menuDate;
+    
+    @Column(columnDefinition = "TEXT")
+    private String content; // e.g. "Bibimbap, Kimchi, Soup"
+}
