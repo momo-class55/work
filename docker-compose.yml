@@ -20,7 +20,7 @@ services:
 
   backend:
     build: .
-    container_name: hankki-backend
+    container_name: hankki
     ports:
       - "8070:8080"
     environment:
