@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>관리자 · Shop QR</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+  <div class="layout">
+    <div class="header-row">
+      <h1 class="user-name" style="margin:0;">관리자 대시보드</h1>
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout" style="background:none;border:none;cursor:pointer;">로그아웃</button>
+      </form>
+    </div>
+
+    <div th:if="${approved}" class="alert alert-info">사용자를 승인했습니다.</div>
+    <div th:if="${menuSaved}" class="alert alert-info">오늘 메뉴를 저장했습니다.</div>
+
+    <h2 class="section-title">오늘 메뉴 등록</h2>
+    <div class="card admin-form">
+      <form th:action="@{/admin/menu/today}" method="post">
+        <label for="content">메뉴 내용</label>
+        <textarea id="content" name="content" required
+                  placeholder="예: 불고기 비빔밥, 미역국, ..."
+                  th:text="${todayMenu != null ? todayMenu.content : ''}"></textarea>
+        <button type="submit" class="btn-primary" style="margin-top:0.75rem;width:auto;">저장</button>
+      </form>
+    </div>
+
+    <h2 class="section-title">승인 대기</h2>
+    <div th:if="${#lists.isEmpty(unapproved)}" class="muted">대기 중인 사용자가 없습니다.</div>
+    <div th:each="u : ${unapproved}" class="list-row">
+      <div>
+        <strong th:text="${u.name}">이름</strong>
+        <span class="muted" th:text="' (' + ${u.phoneNumber} + ')'"></span>
+        <div class="muted" style="font-size:0.85rem;" th:text="${u.company != null} ? ${u.company.name} : '소속 없음'">회사</div>
+      </div>
+      <form th:action="@{/admin/users/{id}/approve(id=${u.id})}" method="post">
+        <button type="submit" class="btn-small">승인</button>
+      </form>
+    </div>
+
+    <h2 class="section-title">식수 통계 (일별)</h2>
+    <div class="card">
+      <div th:each="e : ${stats}" class="stat-row">
+        <span th:text="${e.key}">2026-04-01</span>
+        <strong style="color:var(--blue);" th:text="${e.value} + ' 명'">0 명</strong>
+      </div>
+      <p th:if="${#maps.isEmpty(stats)}" class="muted">기록이 없습니다.</p>
+    </div>
+  </div>
+</body>
+</html>

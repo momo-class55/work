@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>로그인 · Shop QR</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h1>Shop QR</h1>
+    <p class="subtitle">프리미엄 식수 관리 시스템</p>
+
+    <div th:if="${param.error}" class="alert alert-error">
+      전화번호·비밀번호를 확인하거나, 관리자 승인 여부를 확인하세요.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-info">로그아웃되었습니다.</div>
+    <div th:if="${registered}" class="alert alert-info">가입이 완료되었습니다. 관리자 승인 후 로그인할 수 있습니다.</div>
+
+    <form th:action="@{/login}" method="post">
+      <label for="phoneNumber">전화번호</label>
+      <input id="phoneNumber" type="text" name="phoneNumber" required autocomplete="username" placeholder="01012345678">
+
+      <label for="password">비밀번호</label>
+      <input id="password" type="password" name="password" required autocomplete="current-password">
+
+      <button type="submit" class="btn-primary">로그인</button>
+    </form>
+
+    <p style="text-align:center;margin-top:1.5rem;">
+      <a th:href="@{/signup}">계정이 없으신가요? 회원가입</a>
+    </p>
+  </div>
+</body>
+</html>

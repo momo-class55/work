@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
 
   backend:
-    build: ./backend
+    build: .
     container_name: hankki-backend
     ports:
       - "8070:8080"

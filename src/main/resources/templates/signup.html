@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>회원가입 · Shop QR</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h1>회원가입</h1>
+    <p class="subtitle">정보를 입력한 뒤 관리자 승인을 기다려 주세요.</p>
+
+    <div th:if="${error}" class="alert alert-error" th:text="${error}">오류</div>
+
+    <form th:action="@{/signup}" method="post">
+      <label for="name">이름</label>
+      <input id="name" type="text" name="name" required>
+
+      <label for="phoneNumber">전화번호</label>
+      <input id="phoneNumber" type="text" name="phoneNumber" required autocomplete="username">
+
+      <label for="password">비밀번호</label>
+      <input id="password" type="password" name="password" required autocomplete="new-password">
+
+      <label for="passwordConfirm">비밀번호 확인</label>
+      <input id="passwordConfirm" type="password" name="passwordConfirm" required autocomplete="new-password">
+
+      <label for="companyName">회사명</label>
+      <input id="companyName" type="text" name="companyName" required>
+
+      <button type="submit" class="btn-primary">가입 신청</button>
+    </form>
+
+    <p style="text-align:center;margin-top:1.5rem;">
+      <a th:href="@{/login}">로그인으로</a>
+    </p>
+  </div>
+</body>
+</html>
