@@ -6,4 +6,5 @@ if (-not (Test-Path ".env")) {
 }
 docker compose config | Out-Null
 docker compose up -d --build
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 docker compose ps
