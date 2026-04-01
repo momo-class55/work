@@ -1,0 +1,27 @@
+Private GitHub repository and first push (one-time)
+===================================================
+
+1. Create a private repository on GitHub (github.com -> New repository -> Private). Do not add a README if you already have commits locally.
+
+2. Add the remote and push from this machine:
+   git remote add origin https://github.com/<YOUR_USER>/<YOUR_REPO>.git
+   git push -u origin main
+
+   For SSH:
+   git remote add origin git@github.com:<YOUR_USER>/<YOUR_REPO>.git
+   git push -u origin main
+
+3. Branch protection (optional): Repository Settings -> Rules -> Rulesets (or Branches -> Branch protection rules). Protect "main": require pull request before merging, etc.
+
+4. Server clone of a private repo: use a deploy key (Repo Settings -> Deploy keys) or HTTPS with a personal access token (PAT) with repo scope, stored only on the server.
+
+GitHub Actions secrets for deploy workflow
+==========================================
+Configure under Settings -> Secrets and variables -> Actions:
+
+  SSH_HOST          Target server hostname or IP
+  SSH_USER          SSH login user (e.g. deploy)
+  SSH_PRIVATE_KEY   Private key matching the server's authorized_keys (PEM/OpenSSH)
+  DEPLOY_PATH       Absolute path on the server where the repo is cloned (e.g. /opt/hankki)
+
+Ensure the server has Docker Engine and Docker Compose plugin, a .env file next to docker-compose.yml (copy from .env.example), and git pull access to the private repository.
