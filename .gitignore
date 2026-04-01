@@ -19,12 +19,16 @@ Desktop.ini
 *.swo
 
 # Java / Maven
-backend/target/
+target/
 *.class
 *.jar
 *.war
 *.ear
 hs_err_pid*
+
+# Local Docker Compose overrides (keep base docker-compose.yml in git)
+docker-compose.override.yml
+compose.override.yml
 
 # Node
 node_modules/
@@ -33,10 +37,18 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-store/
 
-# Frontend build artifacts (if any outside node_modules)
-frontend/dist/
-frontend/web-build/
 .expo/
 
 # Docker
 *.local.yml
+
+# Accidental secret / key files
+*.pem
+*.key
+id_rsa
+id_ed25519
+*.p12
+
+# Editor / tooling
+*.bak
+*.orig

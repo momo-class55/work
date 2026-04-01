@@ -1,5 +1,9 @@
 package com.shopqr.service;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.shopqr.model.MealLog;
 import com.shopqr.model.User;
 import com.shopqr.repository.MealLogRepository;
@@ -9,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -75,5 +80,15 @@ public class MealService {
         mealLog.setTimestamp(LocalDateTime.now());
         mealLog.setCheckLocation(locationId);
         mealLogRepository.save(mealLog);
+    }
+
+    /** QR PNG 이미지 바이트 (식단 앱 화면용) */
+    public byte[] buildQrPng(Long userId) throws Exception {
+        String token = generateQrToken(userId);
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(token, BarcodeFormat.QR_CODE, 300, 300);
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+        return pngOutputStream.toByteArray();
     }
 }

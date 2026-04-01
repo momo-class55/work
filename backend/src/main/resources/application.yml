@@ -2,9 +2,9 @@ spring:
   application:
     name: shop-qr
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/shopqr
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${POSTGRES_DB:shopqr}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,6 +16,12 @@ spring:
 
 server:
   port: 8080
+
+# Swagger UI: http://localhost:8080/swagger-ui.html  (배포 시 8070 등 호스트 포트에 맞게)
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
 
 logging:
   level:
